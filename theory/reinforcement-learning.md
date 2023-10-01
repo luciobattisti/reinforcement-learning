@@ -1,10 +1,8 @@
 # Bellman Equations
 
-
-
 ## Reward
 
-$R_{t} = \sum_{k=0}^{\inf}\gamma^{k} r_{t+k+1}$
+$R_{t} = \sum_{k=0}^{\inf}\gamma^{k}r_{t+k+1}$
 
 ## Policy
 
