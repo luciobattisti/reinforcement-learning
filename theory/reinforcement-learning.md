@@ -4,51 +4,40 @@
 
 ## Reward
 
-![equation](https://render.githubusercontent.com/render/math?math=R_%7Bt%7D%20%3D%20%5Csum_%7Bk%3D0%7D%5E%7B%5Cinf%7D%5Cgamma%5E%7Bk%7D%20r_%7Bt%2Bk%2B1%7D)
+$R_{t} = \sum_{k=0}^{\inf}\gamma^{k} r_{t+k+1}$
 
 ## Policy
 
 Policy is a function Π(s, a) of the state and the current action. It returns the probability of taking action a in state s.
 
 
-
 ## State value function
 
-![equation](https://render.githubusercontent.com/render/math?math=V%5E%7B%5Cpi%7D%28s%29%20%3D%20E_%7B%5Cpi%7D%5BR_%7Bt%7D%7Cs_%7Bt%7D%20%3D%20s%5D)
+$V^{\pi}(s) = E_{\pi}[R_{t}|s_{t} = s]$
 
 It is the expected return when starting from state s according to policy π
 
-
-
 ## Action value function
 
-![equation](https://render.githubusercontent.com/render/math?math=Q%5E%7B%5Cpi%7D%28s%2Ca%29%20%3D%20E_%7B%5Cpi%7D%5BR_%7Bt%7D%7Cs_%7Bt%7D%3Ds%2C%20a_%7Bt%7D%3Da%5D)
+$Q^{\pi}(s,a) = E_{\pi}[R_{t}|s_{t}=s, a_{t}=a]$
 
 It is the expected return given s and a under π
 
-
-
 ## Bellman equation for state value function 
 
-![equation](https://render.githubusercontent.com/render/math?math=V%5E%7B%5Cpi%7D%28s%29%20%3D%20%5Csum_%7Ba%7D%5Cpi%28s%2Ca%29%5Csum_%7Bs%5E%7B%27%7D%7DP_%7Bss%5E%7B%27%7D%7D%5E%7Ba%7D%5BR_%7Bss%5E%7B%27%7D%7D%5E%7Ba%7D%2B%5Cgamma%20V%5E%7B%5Cpi%7D%28s%5E%7B%27%7D%29%5D)
+$V^{\pi}(s) = \sum_{a}\pi(s,a)\sum_{s^{'}}P_{ss^{'}}^{a}[R_{ss^{'}}^{a}+\gamma V^{\pi}(s^{'})]$
 
 ## Bellman equation for action value function
 
-![equation](https://render.githubusercontent.com/render/math?math=Q%5E%7B%5Cpi%7D%28s%2Ca%29%3D%5Csum_%7Bs%5E%7B%27%7D%7DP_%7Bss%5E%7B%27%7D%7D%5E%7Ba%7D%5BR_%7Bss%5E%7B%27%7D%7D%5E%7Ba%7D%2B%5Cgamma%20%5Csum_%7Ba%5E%7B%27%7D%7D%5Cpi%28s%5E%7B%27%7D%2Ca%5E%7B%27%7DQ%5E%7B%5Cpi%7D%28s%5E%7B%27%7D%2Ca%5E%7B%27%7D%29%29%5D)
-
-
+$Q^{\pi}(s,a)=\sum_{s^{'}}P_{ss^{'}}^{a}[R_{ss^{'}}^{a}+\gamma \sum_{a^{'}}\pi(s^{'},a^{'}Q^{\pi}(s^{'},a^{'}))]$
 
 # Training algorithms
 
-
-
 ## Q-learning
-
-
 
 ### Deterministic Bellman
 
-![equation](https://render.githubusercontent.com/render/math?math=Q%28s%2Ca%29%20%3D%20r%20%2B%20%5Cgamma%20%2A%20max%28Q%28s%27%2Ca%27%29%29)
+$Q(s,a) = r + \gamma * max(Q(s',a'))$
 
 ```python
 # Randomize current QValues
@@ -63,11 +52,9 @@ state = new_state
 
 ```
 
-
-
 ### Stochastic Q-Learning
 
-![equation](https://render.githubusercontent.com/render/math?math=Q%28s%2Ca%29%20%3D%20%281-%5Calpha%29%20Q%28s%2Ca%29%20%2B%20%5Calpha%5Br%20%2B%20%5Cgamma%20%2A%20max%28Q%28s%27%2Ca%27%29%29%5D)
+$Q(s,a) = (1-\alpha) Q(s,a) + \alpha[r + \gamma * max(Q(s',a'))]$
 
 ```python
 rand_qvals = Q[state] + torch.rand(1,number_of_actions)/1000
@@ -101,11 +88,9 @@ state = new_state
 
 ## Gradient descent - Neural Network
 
-![equation](https://render.githubusercontent.com/render/math?math=Q%28s%2Ca%29%20%3D%20f%28s%2Ca%29)
+$Q(s,a) = f(s,a)$
 
 f(.) is approximated using a neural network
-
-
 
 ### Standard optimization
 
